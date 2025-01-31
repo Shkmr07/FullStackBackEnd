@@ -1,25 +1,12 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const BlacklistToken = require("../models/BlacklistToken");
+const expireTime = require("./expireTime");
 
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  
 
-  const cookieAge = (expire) => {
-    const time = expire.slice(-1);
-    const value = parseInt(expire, 10);
-    switch (time) {
-      case "d":
-        return value * 24 * 60 * 60 * 1000;
-      case "h":
-        return value * 60 * 60 * 1000;
-      case "m":
-        return value * 60 * 1000;
-      default:
-        return value * 1000;
-    }
-  };
 
   try {
     const user = await User.findOne({ email });
@@ -28,8 +15,29 @@ const loginUser = async (req, res) => {
     }
 
     const isPassword = await bcrypt.compare(password, user.password);
-    if (!password) {
+    if (!isPassword) {
       return res.status(400).json({ message: "Wrong Credentials!" });
+    }
+
+    const isJwt = req.cookies?.jwt;
+
+    if (isJwt) {
+      try {
+        jwt.verify(isJwt, process.env.PRIVATE_KEY);
+
+        const isBlacklisted = await BlacklistToken.findOne({ token: isJwt });
+
+        if (isBlacklisted) {
+          return res.status(403).json({ message: "❌ Token is blacklisted!" });
+        }
+
+        await BlacklistToken.create({
+          token: isJwt,
+          expireAt: new Date(Date.now() + expireTime(process.env.REFRESH_TOKEN)),
+        });
+      } catch (err) {
+        console.log("Invalid token found in cookies, not blacklisting.");
+      }
     }
 
     const accessToken = jwt.sign(
@@ -54,4 +62,4 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = loginUser
+module.exports = loginUser;

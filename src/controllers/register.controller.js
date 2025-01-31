@@ -9,3 +9,6 @@ const createUser = async (req, res) => {
     res.status(500).json({ error: `❌ Error creating user ${err.message}` });
   }
 };
+
+
+module.exports = createUser
