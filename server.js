@@ -1,11 +1,13 @@
 const express = require("express");
 const connectdb = require("./config");
 const routes = require("./src/routes");
+const cookie = require("cookie-parse")
 require("dotenv").config();
 
 const app = express();
 
 app.use(express.json());
+app.use(cookie.parse())
 app.use("api/",routes)
 
 connectdb()
