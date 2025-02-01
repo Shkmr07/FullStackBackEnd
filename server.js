@@ -6,7 +6,7 @@ const morgan = require("morgan")
 require("dotenv").config();
 
 const app = express();
-
+const PORT = process.env.PORT || 3000
 app.use(express.json());
 app.use(morgan("dev"))
 app.use(cookieParser())
@@ -14,8 +14,8 @@ app.use("/api",routes)
 
 connectdb()
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log(`🚀 Server is running at http://localhost:${process.env.PORT}`);
+    app.listen(PORT, () => {
+      console.log(`🚀 Server is running at http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
