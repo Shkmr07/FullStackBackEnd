@@ -2,13 +2,15 @@ const express = require("express");
 const connectdb = require("./config");
 const routes = require("./src/routes");
 const cookieParser = require("cookie-parser")
+const morgan = require("morgan")
 require("dotenv").config();
 
 const app = express();
 
 app.use(express.json());
+app.use(morgan("dev"))
 app.use(cookieParser())
-app.use("api/",routes)
+app.use("/api",routes)
 
 connectdb()
   .then(() => {
