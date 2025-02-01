@@ -12,6 +12,11 @@ app.use(morgan("dev"))
 app.use(cookieParser())
 app.use("/api",routes)
 
+app.get("/", (req, res) => {
+  res.send("Welcome to my API! Use /api to access routes.");
+});
+
+
 connectdb()
   .then(() => {
     app.listen(PORT, () => {
