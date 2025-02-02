@@ -22,7 +22,7 @@ const createToken = async (req, res) => {
     });
 
     const accessToken = jwt.sign(
-      { userId: user._id },
+      { userId: user._id, role : user.role},
       process.env.PRIVATE_KEY,
       { expiresIn: process.env.ACCESS_TOKEN }
     );
