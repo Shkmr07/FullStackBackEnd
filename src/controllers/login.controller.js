@@ -54,7 +54,7 @@ const loginUser = async (req, res) => {
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
-      maxAge: cookieAge(process.env.REFRESH_TOKEN),
+      maxAge: expireTime(process.env.REFRESH_TOKEN),
     });
     res.status(200).json({ message: "✅ login successful", accessToken });
   } catch (err) {

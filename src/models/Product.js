@@ -23,6 +23,7 @@ ProductSchema.pre("save", async function (next) {
     if (!this.isModified("image") || !this.image) {
       next();
     }
+    console.log(this.image);
     this.image = await cloudinary(path.join(__dirname, "../../", "uploads"));
     next();
   } catch (err) {
