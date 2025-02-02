@@ -3,7 +3,9 @@ const Product = require("../models/Product");
 const createProduct = async (req, res) => {
   const payload = req.body;
   try {
-    await Product.create(payload);
+    const product = new Product(payload);
+    product.userId = req.user.userId
+    await product.save()
     res.status(201).json({ message: "✅ Product added successfully" });
   } catch (err) {
     res.status(500).json({ error: `❌ Error creating product ${err.message}` });
@@ -32,7 +34,7 @@ const updateProduct = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "no product found" });
     }
-    if (req.user?.userId !== product.userId) {
+    if (req.user?.userId !== product.userId && req.user?.role !== "admin") {
       return res
         .status(401)
         .json({ message: "Unauthorized to update this product." });
@@ -55,7 +57,7 @@ const deleteProduct = async (req, res) => {
     if (!product) {
       return res.status(404).json({ message: "no product found" });
     }
-    if (req.user?.userId !== product.userId) {
+    if (req.user?.userId !== product.userId && req.user?.role !== "admin") {
       return res
         .status(401)
         .json({ message: "Unauthorized to delete this product." });
