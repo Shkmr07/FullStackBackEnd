@@ -10,7 +10,6 @@ module.exports = async (filePath) => {
 
   try {
     const uploadResult = await cloudinary.uploader.upload(filePath);
-    console.log("cloudinary upload result", uploadResult);
     fs.unlinkSync(filePath);
     return uploadResult.secure_url;
   } catch (err) {

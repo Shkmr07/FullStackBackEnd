@@ -18,17 +18,5 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true, versionKey: false }
 );
 
-ProductSchema.pre("save", async function (next) {
-  try {
-    if (!this.isModified("image") || !this.image) {
-      next();
-    }
-    console.log(this.image);
-    this.image = await cloudinary(path.join(__dirname, "../../", "uploads"));
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
 
 module.exports = mongoose.model("Product", ProductSchema);

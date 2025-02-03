@@ -1,11 +1,21 @@
 const Product = require("../models/Product");
+const cloudinary = require("../controllers/cloudinary");
 
 const createProduct = async (req, res) => {
   const payload = req.body;
+  if (req.file) {
+    try {
+      payload.image = await cloudinary(req.file.path);
+    } catch (uploadError) {
+      return res
+        .status(500)
+        .json({ error: `❌ Error uploading image: ${uploadError.message}` });
+    }
+  }
   try {
     const product = new Product(payload);
-    product.userId = req.user.userId
-    await product.save()
+    product.userId = req.user.userId;
+    await product.save();
     res.status(201).json({ message: "✅ Product added successfully" });
   } catch (err) {
     res.status(500).json({ error: `❌ Error creating product ${err.message}` });
@@ -29,6 +39,7 @@ const getProducts = async (req, res) => {
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const payload = req.body;
+  
   try {
     const product = await Product.findById(id);
     if (!product) {

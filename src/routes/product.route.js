@@ -7,7 +7,7 @@ const authorization = require("../middlewares/authorization")
 const productRoute = express.Router()
 
 productRoute.get("/",getProducts)
-productRoute.post("/",authentication,authorization(["admin","user"]),upload.single("file"),createProduct)
+productRoute.post("/",authentication,authorization(["admin","user"]),upload.single("image"),createProduct)
 productRoute.put("/:id",authentication,authorization(["admin","user"]),updateProduct)
 productRoute.delete("/:id",authentication,authorization(["admin","user"]),deleteProduct)
 
