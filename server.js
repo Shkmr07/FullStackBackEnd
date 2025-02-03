@@ -5,18 +5,27 @@ const express = require("express");
 const connectdb = require("./config");
 const routes = require("./src/routes");
 const cookieParser = require("cookie-parser")
-const morgan = require("morgan")
+const cors = require("cors")
 require("dotenv").config();
+
+const corsOptions = {
+  origin: 'https://stirring-baklava-e8268c.netlify.app',
+  methods : ["GET","POST","PUT","DELETE","OPTIONS"],
+  allowedHeaders : ["Content-Type","Authorization"],
+  credentials : true,
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000
+
+app.use(cors(corsOptions))
 app.use(express.json());
-app.use(morgan("dev"))
 app.use(cookieParser())
 app.use("/api",routes)
 
 app.get("/", (req, res) => {
-  res.send("Welcome to my API! Use /api to access routes.");
+  res.send("🎉 Welcome to my API! 🚀 Use /api to access the routes. 🔥");
 });
 
 
