@@ -1,3 +1,7 @@
+/* This JavaScript code defines an authentication middleware function that is used to verify and decode
+JWT tokens for user authentication in a Node.js application. Here is a breakdown of what the code is
+doing: */
+
 const BlacklistToken = require("../models/BlacklistToken");
 const jwt = require("jsonwebtoken");
 

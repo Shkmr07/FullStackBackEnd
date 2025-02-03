@@ -1,3 +1,6 @@
+/* This JavaScript code defines a function named `loginUser` that handles the login process for a user.
+Here is a breakdown of what the code is doing: */
+
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");

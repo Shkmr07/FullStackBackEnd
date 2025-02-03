@@ -1,3 +1,5 @@
+/* This JavaScript code is defining a Mongoose schema for a Blacklist collection in a MongoDB database. */
+
 const mongoose = require("mongoose");
 
 const BlacklistSchema = new mongoose.Schema(

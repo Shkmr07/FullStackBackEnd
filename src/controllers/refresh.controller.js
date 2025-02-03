@@ -1,3 +1,6 @@
+/* This JavaScript code defines a function called `createToken` that is responsible for generating a
+new access token based on a provided refresh token. Here is a breakdown of what the code does: */
+
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const BlacklistToken = require("../models/BlacklistToken");

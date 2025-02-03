@@ -1,3 +1,6 @@
+/* This JavaScript code sets up a basic Express server with some middleware and routes. Here's a
+breakdown of what each part does: */
+
 const express = require("express");
 const connectdb = require("./config");
 const routes = require("./src/routes");

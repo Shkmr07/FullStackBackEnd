@@ -1,3 +1,6 @@
+/* This code snippet is defining a function called `connectdb` that connects to a MongoDB database
+using Mongoose. Here's a breakdown of what the code does: */
+
 const mongoose = require("mongoose")
 
 const connectdb = async () =>{

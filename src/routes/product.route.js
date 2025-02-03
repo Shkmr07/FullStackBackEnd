@@ -1,3 +1,6 @@
+/* This JavaScript code is setting up routes for a product-related API using the Express framework.
+Here's a breakdown of what each part does: */
+
 const express = require("express")
 const { createProduct, getProducts, updateProduct, deleteProduct } = require("../controllers/product.controller")
 const upload = require("../middlewares/multer")

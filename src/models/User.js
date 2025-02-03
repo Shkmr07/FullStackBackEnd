@@ -1,3 +1,6 @@
+/* This JavaScript code snippet is defining a Mongoose schema for a User model in a Node.js
+application. Here's a breakdown of what each part of the code is doing: */
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 

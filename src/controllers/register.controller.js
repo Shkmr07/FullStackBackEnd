@@ -1,3 +1,6 @@
+/* This code snippet is a JavaScript function that creates a new user by handling a POST request.
+Here's a breakdown of what it does: */
+
 const User = require("../models/User");
 
 const createUser = async (req, res) => {

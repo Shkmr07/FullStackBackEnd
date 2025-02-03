@@ -1,3 +1,6 @@
+/* This JavaScript code defines several functions related to managing products in an application. Here
+is a breakdown of what each function does: */
+
 const Product = require("../models/Product");
 const cloudinary = require("../controllers/cloudinary");
 
